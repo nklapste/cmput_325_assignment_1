@@ -20,3 +20,7 @@
     )
   )
 )
+
+(defun palindrome (L)
+  (eq (first L) (car (last L)))
+)
