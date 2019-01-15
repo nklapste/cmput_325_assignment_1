@@ -22,5 +22,11 @@
 )
 
 (defun palindrome (L)
-  (eq (first L) (car (last L)))
+  (if (null L)
+    T
+    (if (eq (first L) (car (last L)))
+      (palindrome (reverse (cdr (reverse (cdr L)))))
+      ()
+    )
+  )
 )
