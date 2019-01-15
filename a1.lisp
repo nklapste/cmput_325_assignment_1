@@ -6,3 +6,10 @@
         ())
       T)
     T))
+
+(defun numbers(N)
+  (if (= 1 N)
+    (cons 1 ())
+    (append (numbers (- N 1)) (cons N ()))
+  )
+)
