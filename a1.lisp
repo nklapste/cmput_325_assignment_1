@@ -30,3 +30,15 @@
     )
   )
 )
+
+(defun replace1 (Atom1 Atom2 L)
+  (write 'L)
+  (if (null L)
+    ()
+    (if (eq Atom1 (first L))
+      (cons Atom2 (replace1 Atom1 Atom2 (cdr L)))
+      (cons (first L) (replace1 Atom1 Atom2 (cdr L)))
+    )
+  )
+
+)
