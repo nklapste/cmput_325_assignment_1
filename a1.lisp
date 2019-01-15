@@ -1,0 +1,8 @@
+(defun issorted (L)
+  (if (nth 0 L)
+    (if (nth 1 L)
+      (if (<= (first L) (nth 1 L))
+        (issorted (cdr L))
+        ())
+      T)
+    T))
