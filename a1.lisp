@@ -11,13 +11,13 @@
     (if (nth 1 L)
       (if (< (first L) (nth 1 L))
         (issorted (cdr L))
-        ()
-      )
-      T
-    )
-    T
-  )
-)
+        ())
+
+      T)
+
+    T))
+
+
 
 ; Q:2
 ;Given a nonnegative integer N, produce the list of all integers from 1 up to
@@ -27,10 +27,10 @@
     ()
     (if (= 1 N)
       (cons 1 ())
-      (append (numbers (- N 1)) (cons N ()))
-    )
-  )
-)
+      (append (numbers (- N 1)) (cons N ())))))
+
+
+
 
 ; Q:3
 ; Palindrome checks if a given list L of atoms is a palindrome.
@@ -40,10 +40,10 @@
     T
     (if (eq (first L) (car (last L)))
       (palindrome (reverse (cdr (reverse (cdr L)))))
-      ()
-    )
-  )
-)
+      ())))
+
+
+
 
 ; Q:4.1
 ; Function replace1 replaces all instances of Atom1 by Atom2 in elements of
@@ -54,10 +54,10 @@
     ()
     (if (eq Atom1 (first L))
       (cons Atom2 (replace1 Atom1 Atom2 (cdr L)))
-      (cons (first L) (replace1 Atom1 Atom2 (cdr L)))
-    )
-  )
-)
+      (cons (first L) (replace1 Atom1 Atom2 (cdr L))))))
+
+
+
 
 ; Q:4.2
 ; The function replace2 also replaces Atom1 by Atom2. However, this function
@@ -68,12 +68,12 @@
     (if (atom (first L))
       (if (eq Atom1 (first L))
         (cons Atom2 (replace2 Atom1 Atom2 (cdr L)))
-        (cons (first L) (replace2 Atom1 Atom2 (cdr L)))
-      )
-      (cons (replace2 Atom1 Atom2 (first L)) (replace2 Atom1 Atom2 (cdr L)))
-    )
-  )
-)
+        (cons (first L) (replace2 Atom1 Atom2 (cdr L))))
+
+      (cons (replace2 Atom1 Atom2 (first L)) (replace2 Atom1 Atom2 (cdr L))))))
+
+
+
 
 ; Q:5
 ; L1 and L2 are lists of atoms. In these lists, no atom appears more than once.
@@ -83,10 +83,10 @@
     0
     (if (eq (first L1) (first L2))
       (+ 1 (common (cdr L1) (cdr L2)))
-      (+ (common (cdr L1) L2) (common L1 (cdr L2)))
-    )
-  )
-)
+      (+ (common (cdr L1) L2) 0))))
+
+
+
 
 ; Q:6
 ; This function should implement the greedy algorithm for the set cover problem.
@@ -132,6 +132,29 @@
 ; Assume that we still have some of the numbers in (1 2 ... N) left to cover.
 ; We consider each subset Si in S, and count how many of these numbers would
 ; be covered by Si. Then we greedily pick a subset that covers the most.
+
+; given a set of integers R and a list of integer sets L
+; return the set within L the best covers R
+(defun bestset (R L)
+  (if (or (null (nth  1 L)) (null L))
+    (first L)
+    (if (> (common R (first L)) (common R (nth 1 L)))
+      (bestset R (cons (first L) (cdr (cdr L))))
+      (bestset R (cdr L)))))
+
+; compute the difference of two lists e.g. l1-l2
+; used in setcoverrec
+(defun listdiff (L1 L2)
+  (if L1
+    (if (member (car L1) L2)
+      (listdiff (cdr L1) L2)
+      (cons (car L1) (listdiff (cdr L1) L2)))))
+
+; the recursive component to setcover. This was used as the arguement
+; structure of setcover is hard to make recursive.
+(defun setcoverrec (R L)
+  (if (null R) ()
+    (cons  (bestset R L) (setcoverrec (listdiff R (bestset R L)) (replace1 (bestset R L) () L)))))
+
 (defun setcover (N L)
-  ()
-)
+  (if (null (numbers N)) () (setcoverrec (numbers N) L)))
