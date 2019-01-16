@@ -132,3 +132,4 @@
 ; Assume that we still have some of the numbers in (1 2 ... N) left to cover.
 ; We consider each subset Si in S, and count how many of these numbers would
 ; be covered by Si. Then we greedily pick a subset that covers the most.
+(defun setcover (L1 L2) ())
