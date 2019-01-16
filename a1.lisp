@@ -17,8 +17,6 @@
 
     T))
 
-
-
 ; Q:2
 ;Given a nonnegative integer N, produce the list of all integers from 1 up to
 ; and including N.
@@ -29,9 +27,6 @@
       (cons 1 ())
       (append (numbers (- N 1)) (cons N ())))))
 
-
-
-
 ; Q:3
 ; Palindrome checks if a given list L of atoms is a palindrome.
 ; i.e. it reads the same from the front and the back.
@@ -41,9 +36,6 @@
     (if (eq (first L) (car (last L)))
       (palindrome (reverse (cdr (reverse (cdr L)))))
       ())))
-
-
-
 
 ; Q:4.1
 ; Function replace1 replaces all instances of Atom1 by Atom2 in elements of
@@ -73,20 +65,15 @@
       (cons (replace2 Atom1 Atom2 (first L)) (replace2 Atom1 Atom2 (cdr L))))))
 
 
-
-
 ; Q:5
 ; L1 and L2 are lists of atoms. In these lists, no atom appears more than once.
 ; common counts how many atoms are contained in both L1 and L2.
 (defun common (L1 L2)
   (if (or (null L1) (null L2))
     0
-    (if (eq (first L1) (first L2))
-      (+ 1 (common (cdr L1) (cdr L2)))
-      (+ (common (cdr L1) L2) 0))))
-
-
-
+    (if (member (first L1) L2)
+      (+ 1 (common (cdr L1) L2))
+      (+ 0 (common (cdr L1) L2)))))
 
 ; Q:6
 ; This function should implement the greedy algorithm for the set cover problem.
