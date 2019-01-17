@@ -59,7 +59,6 @@
       (if (eq Atom1 (first L))
         (cons Atom2 (replace2 Atom1 Atom2 (cdr L)))
         (cons (first L) (replace2 Atom1 Atom2 (cdr L))))
-
       (cons (replace2 Atom1 Atom2 (first L)) (replace2 Atom1 Atom2 (cdr L))))))
 
 
@@ -142,4 +141,4 @@
     (cons  (bestset R L) (setcoverrec (listdiff R (bestset R L)) (replace1 (bestset R L) () L)))))
 
 (defun setcover (N L)
-  (if (null (numbers N)) () (setcoverrec (numbers N) L)))
+  (setcoverrec (numbers N) L))
