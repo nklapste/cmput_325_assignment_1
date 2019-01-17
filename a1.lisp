@@ -12,9 +12,7 @@
       (if (< (first L) (nth 1 L))
         (issorted (cdr L))
         ())
-
       T)
-
     T))
 
 ; Q:2
