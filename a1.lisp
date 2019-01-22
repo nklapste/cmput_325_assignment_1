@@ -144,5 +144,6 @@
   (if (null R) ()
     (cons (bestset R L) (setcoverrec (listdiff R (bestset R L)) (listdiff L (cons (bestset R L) ()))))))
 
+; function meeting Q:6's arguement requirements
 (defun setcover (N L)
   (setcoverrec (numbers N) L))
