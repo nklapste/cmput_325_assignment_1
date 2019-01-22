@@ -120,11 +120,15 @@
 ; given a set of integers R and a list of integer sets L
 ; return the set within L the best covers R
 (defun bestset (R L)
-  (if (or (null (nth  1 L)) (null L))
+  (if (null (nth  1 L))
     (first L)
-    (if (> (common R (first L)) (common R (nth 1 L)))
-      (bestset R (cons (first L) (cdr (cdr L))))
-      (bestset R (cdr L)))))
+    (if (= (common R (first L)) (common R (nth 1 L)))
+      (bestset R (cons (first L) (cddr L)))
+      (if (> (common R (first L)) (common R (nth 1 L)))
+        (bestset R (cons (first L) (cddr L)))
+        (bestset R (cdr L))))))
+
+
 
 ; compute the difference of two lists e.g. l1-l2
 ; used in setcoverrec
@@ -138,7 +142,7 @@
 ; structure of setcover is hard to make recursive.
 (defun setcoverrec (R L)
   (if (null R) ()
-    (cons  (bestset R L) (setcoverrec (listdiff R (bestset R L)) (replace1 (bestset R L) () L)))))
+    (cons (bestset R L) (setcoverrec (listdiff R (bestset R L)) (listdiff L (cons (bestset R L) ()))))))
 
 (defun setcover (N L)
   (setcoverrec (numbers N) L))
