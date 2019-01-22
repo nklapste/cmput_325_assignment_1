@@ -120,9 +120,9 @@
 ; given a set of integers R and a list of integer sets L
 ; return the set within L the best covers R
 (defun bestset (R L)
-  (if (null (nth  1 L))
+  (if (null (nth  1 L))  ; we are at last element within a list, return it
     (first L)
-    (if (= (common R (first L)) (common R (nth 1 L)))
+    (if (= (common R (first L)) (common R (nth 1 L))) ; prioritize returning the first element
       (bestset R (cons (first L) (cddr L)))
       (if (> (common R (first L)) (common R (nth 1 L)))
         (bestset R (cons (first L) (cddr L)))
